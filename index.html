@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyprian Musundi — Fullstack Developer &amp; Tech Specialist</title>
+  <style>
+    :root {
+      --bg-main: #0b0b0d;
+      --bg-card: #141418;
+      --bg-card-hover: #1b1b21;
+      --bg-input: #1d1d24;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --accent-soft: rgba(245, 158, 11, 0.14);
+      --text-main: #f5f5f7;
+      --text-muted: #a1a1aa;
+      --border: #26262e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 11, 13, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.02rem;
+    }
+
+    .avatar-thumb {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 12%;
+      border: 2px solid var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .btn-pill {
+      background: var(--accent);
+      color: #0b0b0d;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-pill:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 36px;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .highlight {
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-size: 1.02rem;
+    }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 26px;
+    }
+
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+
+    /* Profile Portrait Frame */
+    .profile-frame {
+      position: relative;
+      background: linear-gradient(145deg, rgba(245, 158, 11, 0.25), rgba(20, 20, 24, 0.95));
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 22px;
+      padding: 10px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+    }
+
+    .profile-frame img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .profile-badge {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .profile-badge span {
+      color: var(--accent);
+    }
+
+    /* Glossy Showcase Banner */
+    .showcase-card {
+      margin-top: 28px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(20, 20, 24, 0.96));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .showcase-visual {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .showcase-visual img {
+      width: 100%;
+      max-height: 310px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .showcase-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11, 11, 13, 0.82) 10%, transparent 65%);
+      display: flex;
+      align-items: flex-end;
+      padding: 18px;
+    }
+
+    .showcase-caption {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .quote-box {
+      border-left: 3px solid var(--accent);
+      padding: 6px 14px;
+      margin: 16px 0 20px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0b0d;
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-input);
+      color: var(--text-main);
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+    }
+
+    /* Marquee Strip */
+    .marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--accent);
+      color: #0b0b0d;
+      padding: 12px 0;
+      margin: 36px 0;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: scroll-left 22s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Sections */
+    section {
+      padding: 44px 0;
+    }
+
+    .section-tag {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    /* Accordion Services */
+    .accordion-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .accordion-item.active {
+      border-color: var(--accent);
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 0 20px 20px;
+      color: var(--text-muted);
+    }
+
+    .accordion-item.active .accordion-body {
+      display: block;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* About Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .info-card h3 {
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .info-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .contact-item {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s ease;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .status-msg {
+      font-size: 0.9rem;
+      color: var(--accent);
+      min-height: 20px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 40px;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 760px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-frame {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <img src="profile.jpg" alt="Cyprian Musundi" class="avatar-thumb" />
+        <span>Cyprian Musundi</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="btn-pill">Let's Talk</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-layout">
+          <div>
+            <div class="eyebrow">• Fullstack Developer • Systems &amp; Web Solutions</div>
+            <h1>I'm <span class="highlight">Cyprian Musundi</span></h1>
+            <p>
+              Developer based in Kenya, focused on building practical web applications,
+              reliable systems, and clean digital solutions for real-world problems.
+            </p>
+            <p>
+              I combine structured problem-solving, modern web technologies, and hands-on technical
+              support to turn ideas into working software.
+            </p>
+
+            <div class="social-row">
+              <a
+                href="https://www.linkedin.com/in/cyprian-musundi-b8a75a320?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="chip"
+              >
+                LinkedIn
+              </a>
+              <a href="mailto:cyprianmusundi64@gmail.com" class="chip">cyprianmusundi64@gmail.com</a>
+              <a href="tel:+254759050639" class="chip">+254759050639</a>
+            </div>
+          </div>
+
+          <div class="profile-frame">
+            <img src="profile.jpg" alt="Portrait of Cyprian Musundi" />
+            <div class="profile-badge"><span>●</span> Available for Projects &amp; Roles</div>
+          </div>
+        </div>
+
+        <div class="showcase-card">
+          <div class="showcase-visual">
+            <img src="fall.jpg" alt="Modern dark and amber web development interface showcase" />
+            <div class="showcase-overlay">
+              <div class="showcase-caption">Modern Web Engineering • Clean UI • Reliable Systems</div>
+            </div>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Web Development</span>
+            <span class="tag">Software Engineering</span>
+            <span class="tag">Technical Support &amp; Systems</span>
+          </div>
+          <div class="quote-box">
+            "Turning technology, structure, and ideas into practical solutions."
+          </div>
+          <div class="cta-group">
+            <a href="#services" class="btn-primary">View Services →</a>
+            <a href="#contact" class="btn-secondary">Get in Touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        • CYPRIAN MUSUNDI • FULLSTACK DEVELOPER • WEB ENGINEERING • PROBLEM SOLVING • TECHNICAL SUPPORT •
+        • CYPRIAN MUSUNDI • FULLSTACK DEVELOPER • WEB ENGINEERING • PROBLEM SOLVING • TECHNICAL SUPPORT •
+      </div>
+    </div>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-tag">+ Services / What I Do</div>
+        <h2 class="section-title">How I Solve Problems <span class="highlight">With Technology</span></h2>
+
+        <div class="accordion-item active">
+          <button class="accordion-header" type="button" onclick="toggleAccordion(this)">
+            <span>01. Software &amp; Web Development</span>
+            <span>−</span>
+          </button>
+          <div class="accordion-body">
+            <div class="tags">
+              <span class="tag">HTML &amp; CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Web Apps</span>
+              <span class="tag">CRUD Systems</span>
+              <span class="tag">APIs</span>
+            </div>
+            <p>
+              Building responsive websites, management tools, and clean user interfaces designed
+              for speed, clarity, and maintainability.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" type="button" onclick="toggleAccordion(this)">
+            <span>02. Systems &amp; Network Support</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="tags">
+              <span class="tag">Troubleshooting</span>
+              <span class="tag">Networking</span>
+              <span class="tag">System Administration</span>
+              <span class="tag">Documentation</span>
+            </div>
+            <p>
+              Diagnosing configuration issues, maintaining smooth workflows, and keeping local and
+              cloud environments running reliably.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" type="button" onclick="toggleAccordion(this)">
+            <span>03. Automation &amp; Workflows</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="tags">
+              <span class="tag">Scripting</span>
+              <span class="tag">Git &amp; Deployment</span>
+              <span class="tag">Process Improvement</span>
+            </div>
+            <p>
+              Streamlining repetitive tasks and deployment steps so teams can ship updates faster
+              with fewer manual errors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-tag">+ About Section</div>
+        <h2 class="section-title">Who is <span class="highlight">Cyprian Musundi</span>?</h2>
+        <p style="color: var(--text-muted); max-width: 720px;">
+          I approach every project with curiosity, methodical debugging, and a focus on shipping
+          functional, easy-to-use solutions.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-card">
+            <h3>Frontend &amp; Web UI</h3>
+            <p>Clean layouts, responsive grids, interactive components, and accessible navigation.</p>
+          </div>
+          <div class="info-card">
+            <h3>Application Logic</h3>
+            <p>Structured data handling, form validation, onboarding/offboarding flows, and integrations.</p>
+          </div>
+          <div class="info-card">
+            <h3>Git &amp; Deployment</h3>
+            <p>Version control with Git and GitHub, branch workflows, and static site hosting.</p>
+          </div>
+          <div class="info-card">
+            <h3>Diagnostics &amp; Reliability</h3>
+            <p>Root-cause troubleshooting across operating systems, networks, and web applications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-tag">+ Contact Section</div>
+        <h2 class="section-title">Let's Build <span class="highlight">Something Useful</span></h2>
+
+        <div class="contact-grid">
+          <div>
+            <p style="color: var(--text-muted); margin-bottom: 18px;">
+              Have a project idea, technical role, or collaboration in mind? Reach out directly or send a message below.
+            </p>
+            <a href="mailto:cyprianmusundi64@gmail.com" class="contact-item" style="display: block;">
+              <div class="contact-label">Email</div>
+              <div>cyprianmusundi64@gmail.com</div>
+            </a>
+            <a href="tel:+254759050639" class="contact-item" style="display: block;">
+              <div class="contact-label">Phone / WhatsApp</div>
+              <div>+254759050639</div>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/cyprian-musundi-b8a75a320?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-item"
+              style="display: block;"
+            >
+              <div class="contact-label">LinkedIn</div>
+              <div>Cyprian Musundi ↗</div>
+            </a>
+          </div>
+
+          <form id="contactForm">
+            <input type="text" id="senderName" placeholder="Your Name" required />
+            <input type="email" id="senderEmail" placeholder="Your Email Address" required />
+            <textarea id="senderMessage" rows="4" placeholder="Tell me about your project or idea..." required></textarea>
+            <button type="submit" class="btn-primary">Send Message →</button>
+            <div class="status-msg" id="formStatus"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div><strong>Cyprian Musundi</strong> Portfolio</div>
+      <div class="footer-bottom">
+        <span>© 2026 CYPRIAN MUSUNDI All rights reserved.</span>
+        <span>cyprianmusundi64@gmail.com • +254759050639</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAccordion(button) {
+      const item = button.parentElement;
+      const isOpen = item.classList.contains("active");
+      document.querySelectorAll(".accordion-item").forEach((el) => {
+        el.classList.remove("active");
+        const icon = el.querySelector(".accordion-header span:last-child");
+        if (icon) icon.textContent = "+";
+      });
+      if (!isOpen) {
+        item.classList.add("active");
+        const icon = button.querySelector("span:last-child");
+        if (icon) icon.textContent = "−";
+      }
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("senderName").value.trim();
+      const email = document.getElementById("senderEmail").value.trim();
+      const message = document.getElementById("senderMessage").value.trim();
+      const subject = encodeURIComponent("Portfolio Inquiry from " + name);
+      const body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message);
+
+      document.getElementById("formStatus").textContent =
+        "Opening your email to send message to cyprianmusundi64@gmail.com...";
+      window.location.href = "mailto:cyprianmusundi64@gmail.com?subject=" + subject + "&body=" + body;
+      this.reset();
+    });
+  </script>
+</body>
+</html>
